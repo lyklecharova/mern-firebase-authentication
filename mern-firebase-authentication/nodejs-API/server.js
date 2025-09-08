@@ -1,14 +1,33 @@
-const http = require('node:http');
+const express = require('express');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+dotenv.config();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, NodeJS !\n');
+//* App
+const app = express();
+
+// * connect to database
+
+mongoose
+    .connect(process.env.MONGO_URL, {
+        dbName: 'firebase-auth-sample',
+    })
+    .then(() => {
+        console.log('Connected to DB');
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+// * middlewares
+app.use(morgan('dev'));
+app.use(cors());
+app.use(express.json());
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
+    console.log(`Server running at ${port}/`);
 });
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-}); 
