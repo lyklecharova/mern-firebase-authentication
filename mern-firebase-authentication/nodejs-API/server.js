@@ -7,6 +7,9 @@ const morgan = require('morgan');
 
 dotenv.config();
 
+// import routes
+const authRouters = require('./routes/authRoutes');
+
 //* App
 const app = express();
 
@@ -22,10 +25,15 @@ mongoose
     .catch((err) => {
         console.log(err);
     });
+    
 // * middlewares
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
+
+// routes
+app.use('/api', authRouters);
+
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
