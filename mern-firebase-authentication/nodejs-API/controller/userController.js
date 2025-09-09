@@ -50,3 +50,21 @@ exports.listAllUSer = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// get user by id
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).exec();
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+            bio: user.bio,
+            role: user.role,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
