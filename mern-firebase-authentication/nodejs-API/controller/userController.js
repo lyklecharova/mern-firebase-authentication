@@ -68,3 +68,17 @@ exports.getUserById = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// update user by id
+exports.updateUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).exec();
+        user.role = rq.body.role;
+        await user.save();
+
+        res.json({ user });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
