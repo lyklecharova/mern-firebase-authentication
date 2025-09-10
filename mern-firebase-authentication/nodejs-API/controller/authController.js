@@ -3,46 +3,44 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Create or update user
-exports.createOrUpdateUSer = async (req, res) => {
+exports.createOrUpdateUser = async (req, res) => {
     try {
+        if (!req.body) {
+            return res.status(400).json({ err: 'Request body is missing' });
+        }
+
         const { name, picture, email } = req.body;
+        if (!email) {
+            return res.status(400).json({ err: 'Email is required' });
+        }
+        
         const nameFromEmail = email && email.split('@')[0];
         const updatedName = name ? name : nameFromEmail;
         const pictureProcess = picture
             ? picture
             : process.env.DEFAULT_IMAGE_URL;
 
-        const user = await User.findByIdAndUpdate(
+        let user = await User.findOneAndUpdate(
             { email },
             { name: updatedName, picture: pictureProcess },
             { new: true }
         );
 
-        if (user) {
-            res.json({
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                picture: user.picture,
-                bio: user.bio,
-                role: user.role,
-            });
-        } else {
-            const newUser = new User({
+        if (!user) {
+            user = await new User({
                 email,
                 name: updatedName,
                 picture: pictureProcess,
             }).save();
-
-            res.json({
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                picture: user.picture,
-                bio: user.bio,
-                role: user.role,
-            });
         }
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+            bio: user.bio,
+            role: user.role,
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
