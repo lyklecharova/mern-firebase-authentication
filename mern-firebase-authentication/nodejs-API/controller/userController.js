@@ -73,7 +73,11 @@ exports.getUserById = async (req, res) => {
 exports.updateUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id).exec();
-        user.role = rq.body.role;
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.role = req.body.role;
         await user.save();
 
         res.json({ user });
