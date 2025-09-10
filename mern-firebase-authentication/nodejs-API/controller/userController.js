@@ -1,6 +1,6 @@
 const User = require('../model/userModel');
 
-exports.listAllUSer = async (req, res) => {
+exports.listAllUser = async (req, res) => {
     try {
         // Get pagination values from query parameters
         const page = parseInt(req.query.page) || 1;
