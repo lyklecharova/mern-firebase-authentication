@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    createOrUpdateUSer,
+    createOrUpdateUser,
     currentUser,
 } = require('../controller/authController');
 
-router.post('/create-or-update-user', createOrUpdateUSer);
+router.post('/create-or-update-user', createOrUpdateUser);
 router.post('/current-user', currentUser);
 
 module.exports = router;
