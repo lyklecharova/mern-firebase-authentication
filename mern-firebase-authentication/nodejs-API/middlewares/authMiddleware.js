@@ -20,3 +20,18 @@ exports.authCheck = async (req, res, next) => {
         });
     }
 };
+
+// adminCheck is a middleware that checks if the user is admin or not
+exports.adminCheck = async (req, res, next) => {
+    try {
+        const { email } = req.user;
+        const adminUser = await User.findOne({ email }).exec();
+        if (!adminUser.role !== 'admin') {
+            throw new Error('Admin resource.Access denied');
+        }
+        next();
+    } catch (err) {
+        console.log(err);
+        res.status(403).json({ err: err.message });
+    }
+};
