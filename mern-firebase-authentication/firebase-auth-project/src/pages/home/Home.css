@@ -1,0 +1,35 @@
+.dashboard-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+  
+  h1 {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .section-card {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .section-icon {
+    color: #007bff;
+  }
+  
+  .progress-bar {
+    background-color: #28a745;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 1rem 0;
+    }
+  }
