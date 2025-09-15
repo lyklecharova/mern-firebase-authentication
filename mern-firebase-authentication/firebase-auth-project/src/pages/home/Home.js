@@ -9,6 +9,7 @@ import {
     FaUsersCog,
     FaShieldAlt,
     FaGraduationCap,
+    FaCode,
 } from 'react-icons/fa';
 import './Home.css';
 
