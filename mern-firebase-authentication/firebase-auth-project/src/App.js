@@ -1,8 +1,13 @@
 import './App.css';
-import Home from './pages/home/Home';
-
+import AppRoutes from './components/routes/AppRoutes';
 function App() {
-    return <Home />;
+    return (
+        <>
+            <div className="App">
+                <AppRoutes />
+            </div>
+        </>
+    );
 }
 
 export default App;
