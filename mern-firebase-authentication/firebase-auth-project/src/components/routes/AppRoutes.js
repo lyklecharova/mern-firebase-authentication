@@ -11,17 +11,22 @@ import AdminLayout from '../layout/AdminLayout';
 const AppRoutes = () => {
     return (
         <Routes>
+            {/* Public */}
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="login" element={<Login />}></Route>
-                <Route path="register" element={<Register />}></Route>
+                <Route path="login" element={<Login />} />
+                <Route path="forgot" element={<ForgotPass />} />
+                <Route path="register" element={<Register />} />
                 <Route
                     path="register/complete"
                     element={<RegisterComplete />}
-                ></Route>
+                />
+            </Route>
 
-                <Route path="forgot" element={<ForgotPass />}></Route>
-                <Route path="/admin" element={<AdminLayout />}></Route>
+            {/* Admin */}
+            <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<Home />} />
+                <Route path="dashboard" element={<Home />} />
             </Route>
         </Routes>
     );
