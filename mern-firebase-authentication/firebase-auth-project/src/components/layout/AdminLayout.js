@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import TopBar from '../header/TopBar';
+import SideBar from '../sidebar/SideBar';
 
 const AdminLayout = () => {
     const [showNav, setShowNav] = useState(true);
@@ -29,7 +30,7 @@ const AdminLayout = () => {
 
     return (
         <div className="d-flex bg-light">
-            <TopBar showNav={showNav} setShowNav={setShowNav}/>
+            <TopBar showNav={showNav} setShowNav={setShowNav} />
             <Transition
                 as="div"
                 show={showNav}
@@ -39,7 +40,9 @@ const AdminLayout = () => {
                 leave="transition-transform duration-400"
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
-            ></Transition>
+            >
+                <SideBar showNav={showNav} />
+            </Transition>
 
             <div
                 className={`flex-grow-1 ${
